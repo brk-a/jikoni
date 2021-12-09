@@ -1,0 +1,8 @@
+#!/usr/bin/bash
+
+echo 'Hi. I\'m here to help you compile C files using -Wall -Werror -Wextra -pedantic -std=gnu89'
+echo 'Please enter the name of the file you want to compile. (1 file, please)...'
+read FILE
+echo 'What name do you want to give to your executable?'
+read NAME
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 $FILE -o $NAME 

@@ -1,0 +1,9 @@
+#!/bin/bash                                                                                                                                              
+echo "List the files to add(seperated by a space, of course)..."                                                                                         
+read ADD                                                                                                                                                 
+echo "Add a commit message..."                                                                                                                           
+read MSG                                                                                                                                                 
+echo "Add a branch to which the commit will be pushed..."                                                                                                
+read BR                                                                                                                                                  
+git add $ADD; git commit -m "$MSG"; git push -uf origin $BR
+
