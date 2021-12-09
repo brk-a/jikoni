@@ -17,7 +17,7 @@ else ans = ack(m - 1, ack(m, n - 1));
 return ans;
 }
 
-int main(int argc, char **argv){
+int main(int __attribute__((__unused__)) argc, char __attribute__((__unused__)) **argv){
 int i, j;
 for (i = 0; i < 6; i++)
 for (j = 0; j <6; j++)
