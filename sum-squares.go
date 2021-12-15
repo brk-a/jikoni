@@ -6,8 +6,10 @@ import (
 	"strconv"
 )
 
-func square(num int) (ret int) {
-	return num * num
+func square(num string) (ret int) {
+	var result int
+	result = strconv.Atoi(num) * strconv.Atoi(num)
+	return result
 }
 
 func main() {
@@ -18,7 +20,7 @@ func main() {
 		return
 	} else {
 
-		sum += square(strconv.Atoi(os.Args[i-1]))
+		sum += square(os.Args[i-1]) /* cannot call because square expects int, not strconv.Atoi(os.Args[i-1]) */
 	}
 	fmt.Printf("%d", sum)
 }
