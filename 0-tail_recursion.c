@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 /**
 *Calculate the factorial of a number using tail recursion instead of trivial recursion
@@ -13,14 +14,10 @@
 int fact (int n);
 int go (int n, int a);
 
-int main (int __attribute__ ((unused)) argc, char argv[]){
-    int len = 0, i = 0;
-    while (argv) {
-        len++;
-    }
-    
-    if (len != 2) {
-        printf('Usage: `./0-tail_recursion N` where N is a positive integer\n');
+int main (int argc, char *argv[]){
+
+    if (argc != 2) {
+        printf("Usage: `./0-tail_recursion N` where N is a positive integer\n");
         return 1;
     } else {
         return fact(atoi(argv[1]));

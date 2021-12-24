@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 /**
 *Fibonacci using tail recursion instead of trivial recursion
@@ -14,14 +15,11 @@
 int fib (int n);
 int go (int n, int a, int b);
 
-int main (int __attribute__ ((unused)) argc, int argv[]){
+int main (int argc, char *argv[]){
     int len = 0, i = 0;
-    while (argv) {
-        len++;
-    }
-    
-    if (len != 2) {
-        printf('Usage: `./1-tail_recursion N` where N is a positive integer\n');
+
+    if (argc != 2) {
+        printf("Usage: `./1-tail_recursion N` where N is a positive integer\n");
         return 1;
     } else {
         return fib(atoi(argv[1]));
