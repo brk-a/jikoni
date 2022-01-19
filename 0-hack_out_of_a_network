@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+echo 'What is the IP address or name of the machine you want to operate out of?'
+read HOSTADDR
+echo 'What is the IP address of the machine you want to snoop on?'
+read IPADDR
+sudo sshuttle -r $HOSTADDR $IPADDR -vv
+
+ssh -f -N -D $HOSTADDR -4444
+sudo iptables -t nat -I PREROUTING -p tcp --dport 4444 -j REDIRECT --to-ports 22
+
+#INCOMPLETE
