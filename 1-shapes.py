@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
 
+'''
+function: draw_shape:
+impress the plebs; your're a god
+@params: none
+return none
+'''
+
 import colorsys as cs
 import turtle as t
 
@@ -11,6 +18,7 @@ h = .7
 t.hideturtle()
 
 def draw_shape():
+    """ function draw_shape """
     global h
     for i in range(4):
         global h
