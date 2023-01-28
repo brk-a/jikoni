@@ -13,7 +13,7 @@ def go(n, a):
 
 def fact(n):
     ''' factorial function'''
-    return go (n, 1)
+    return go(n, 1)
 
 
 if __name__ == '__main__':
