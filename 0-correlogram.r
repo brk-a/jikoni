@@ -12,8 +12,8 @@ head(ds)
 summary(ds)
 
 #filter required data and remove NA
-ds %>%
-    select(male1, male2, male3, female1, female2, female3, pathogen1, pathogen2, pathogen3, pathogen4, pathogen5, pathogen6, pathogen7) %>%
+ds <- ds %>%
+    select(ds$male1, ds$male2, ds$male3, ds$female1, ds$female2, ds$female3, ds$pathogen1, ds$pathogen2, ds$pathogen3, ds$pathogen4, ds$pathogen5, ds$pathogen6, ds$pathogen7) %>%
     na.omit() %>%
     summarise()
 
