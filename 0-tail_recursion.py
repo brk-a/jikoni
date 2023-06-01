@@ -1,9 +1,12 @@
+#!/usr/bin/env python3
+
 '''
 Implement tail recursion instead of trivial recursion
 Case in point: factorial of n
 '''
 
 import sys
+
 
 
 def go(n, a):
@@ -13,7 +16,8 @@ def go(n, a):
 
 def fact(n):
     ''' factorial function'''
-    return go (n, 1)
+    # return go (n, 1)
+    print(go(n, 1))
 
 
 if __name__ == '__main__':
@@ -22,7 +26,7 @@ if __name__ == '__main__':
         print(f'Usage: `./tail-recursion N` where N is a positive integer\n')
         sys.exit(1)
     else:
-        fact(li[1])
+        fact(int(li[1]))
 
 
 

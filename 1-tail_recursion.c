@@ -23,6 +23,7 @@ int main (int argc, char *argv[]){
         return 1;
     } else {
         return fib(atoi(argv[1]));
+        // printf('%d', fib(atoi(argv[1])));
     }
 }
 
