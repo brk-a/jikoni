@@ -14,7 +14,7 @@ int fact (int n);
 int go (int n, int a);
 
 int main (int __attribute__ ((unused)) argc, int argv){
-    int len = 0, i = 0;
+    int len = 0;
     while (argv) {
         len++;
     }

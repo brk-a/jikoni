@@ -2,7 +2,7 @@
 
 int main(int argc, int *argv){
     if(argc!=2){
-        printf("Usage: ./stadium_seats row\n");
+        printf("Usage: ./stadium_seats n_row\n");
         return 0;
     }
     int i = argv[1];
@@ -16,9 +16,21 @@ int row;
 {
     for(int i=row; i>=1; i--){
         for(int j=1; j<=i; j++){
-            putchar("*");
+            putchar('*');
         }
-        putchar("\n");
+        putchar('\n');
     }
     return 0;
 }
+
+/**
+stadium_seats(5)
+
+*****
+****
+***
+**
+*
+
+
+*/
