@@ -32,5 +32,5 @@ fact(n){
 }
 
 go(n, a){
-    return n == 1 ? a:go(n - 1, a * n);
+    return n == 1 ? a : go(n - 1, a * n);
 }
