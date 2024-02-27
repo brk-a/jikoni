@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+nmap -sT -p- <ip_addr> -T4
+nmap -sT -sV -sC -p 22,80 <ip_addr> -T4
+gobuster dir -u http://<ip_addr> -w /usr/share/wordlists/dirb/big.txt #download `id_rsa.pub`
+ssh-keygen -l -f /path/to/id_rsa.pub
+./0-break_rsa.py
