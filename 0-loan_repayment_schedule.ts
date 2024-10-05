@@ -22,7 +22,7 @@ const loanRepaymentScheduleTS = (amount: number, intRate: number, numPay: number
             newBal = oldBal - mthly
             
         } else {
-            mthly = (instalment-displayInt) + owedInterest
+            mthly = (instalment-Number(displayInt)) + owedInterest
             oldBal = newBal
             newBal = 0
             mthly = mthly
