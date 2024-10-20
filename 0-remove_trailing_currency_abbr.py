@@ -15,9 +15,14 @@ import pandas as pd
 import mimetypes
 
 
-def remove_leading_abbr(df, abbr):
+def remove_leading_abbr(df, col_name, abbr):
     """remove leading abbr"""
-    return [x[3:] for x in df.amount]
+    if df.col_name:
+        df[col_name] = df[col_name].apply(lambda x: x.replace(abbr, ''))
+        return df
+    else:
+        print(f"Column '{col_name}' not found in the DataFrame.")
+        return df
 
 
 def open_csv(file_path: str) -> pd.DataFrame:
@@ -167,24 +172,23 @@ def convert_to_original(df: pd.DataFrame, file_path: str) -> None:
         raise Exception(f"An unexpected error occurred while saving the DataFrame: {e}")
 
 
-def handle_doc_input(file, extension, abbr):
+def handle_doc_input(file, extension, col_name, abbr):
     """ handle doc input"""
     if extension == '.csv':
         df = open_csv(file)
     if extension == '.xls' or '.xlsx':
         df = open_excel(file)
         
-    df_removed = remove_leading_abbr(df, abbr)
-
+    df_removed = remove_leading_abbr(df, col_name, abbr)
     clean_doc = convert_to_original(df_removed, extension)
 
     return clean_doc
 
 if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        print(f'Usage: ./0-remove_leading_abbr <PATH/TO/FILE> <ABBR>')
+    if len(sys.argv) != 4:
+        print(f'Usage: ./0-remove_leading_abbr <PATH/TO/FILE> <COLUMN_NAME> <ABBR>')
         print(f'Supported file formats: `.csv` `.xls` and `.xlsx`')
-        print(f'Example: ./0-remove_leading_abbr ~/Documents/my_file.csv KES')
+        print(f'Example: ./0-remove_leading_abbr ~/Documents/my_file.csv amount_paid KES')
         sys.exit(1)
 
     file = sys.argv[1]
@@ -193,5 +197,6 @@ if __name__ == '__main__':
         print(f'So sorry your file cannot be read. Supported file formats: `.csv` `.xls` and `.xlsx`, for now.')
         sys.exit(1)
     
-    abbr = sys.argv[2]
-    handle_doc_input(file, extension, abbr)
+    col_name = sys.argv[2]
+    abbr = sys.argv[3]
+    handle_doc_input(file, extension, col_name, abbr)
