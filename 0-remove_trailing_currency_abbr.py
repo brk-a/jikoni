@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-'''
+"""
 Remove leading currency abbreviations
 or symbols from a `.csv` or `.xls*`
 
 return: a `.csv` or `.xls*` object or 0 -> success,
 else, 1
-'''
+"""
 
 import os
 import sys
@@ -18,7 +18,7 @@ import mimetypes
 def remove_leading_abbr(df, col_name, abbr):
     """remove leading abbr"""
     if df.col_name:
-        df[col_name] = df[col_name].apply(lambda x: x.replace(abbr, ''))
+        df[col_name] = df[col_name].apply(lambda x: x.replace(abbr, ""))
         return df
     else:
         print(f"Column '{col_name}' not found in the DataFrame.")
@@ -26,7 +26,6 @@ def remove_leading_abbr(df, col_name, abbr):
 
 
 def open_csv(file_path: str) -> pd.DataFrame:
-
     """
     Opens a CSV file using pandas.
 
@@ -50,19 +49,19 @@ def open_csv(file_path: str) -> pd.DataFrame:
     if not isinstance(file_path, str):
         raise TypeError("File path must be a string.")
 
-
     # Check if the file exists
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"The file '{file_path}' does not exist.")
 
-
     # Check if the file can be opened for reading
     if not os.access(file_path, os.R_OK):
-        raise PermissionError(f"The file '{file_path}' cannot be opened due to permissions issues.")
+        raise PermissionError(
+            f"The file '{file_path}' cannot be opened due to permissions issues."
+        )
 
     # Check if the file is a CSV file using MIME type
     mime_type, _ = mimetypes.guess_type(file_path)
-    if mime_type != 'text/csv':
+    if mime_type != "text/csv":
         raise ValueError("The file is not a valid CSV file.")
 
     # Open the CSV file using pandas
@@ -78,7 +77,6 @@ def open_csv(file_path: str) -> pd.DataFrame:
 
 
 def open_excel(file_path: str) -> pd.DataFrame:
-
     """
     Opens an Excel file (.xls or .xlsx) using pandas.
 
@@ -109,11 +107,16 @@ def open_excel(file_path: str) -> pd.DataFrame:
 
     # Check if the file can be opened for reading
     if not os.access(file_path, os.R_OK):
-        raise PermissionError(f"The file '{file_path}' cannot be opened due to permissions issues.")
+        raise PermissionError(
+            f"The file '{file_path}' cannot be opened due to permissions issues."
+        )
 
     # Check if the file is an Excel file using MIME type
     mime_type, _ = mimetypes.guess_type(file_path)
-    if mime_type not in ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']:
+    if mime_type not in [
+        "application/vnd.ms-excel",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ]:
         raise ValueError("The file is not a valid Excel file.")
 
     # Open the Excel file using pandas
@@ -127,7 +130,6 @@ def open_excel(file_path: str) -> pd.DataFrame:
 
 
 def convert_to_original(df: pd.DataFrame, file_path: str) -> None:
-
     """
     Saves a pandas DataFrame to a specified file format (CSV, XLS, or XLSX).
     Creates the file if it does not exist.
@@ -162,9 +164,9 @@ def convert_to_original(df: pd.DataFrame, file_path: str) -> None:
 
     # Determine the file extension and save the DataFrame accordingly
     try:
-        if file_path.endswith('.csv'):
+        if file_path.endswith(".csv"):
             df.to_csv(file_path, index=False)
-        elif file_path.endswith('.xls') or file_path.endswith('.xlsx'):
+        elif file_path.endswith(".xls") or file_path.endswith(".xlsx"):
             df.to_excel(file_path, index=False)
         else:
             raise ValueError("The file extension must be .csv, .xls, or .xlsx.")
@@ -173,30 +175,35 @@ def convert_to_original(df: pd.DataFrame, file_path: str) -> None:
 
 
 def handle_doc_input(file, extension, col_name, abbr):
-    """ handle doc input"""
-    if extension == '.csv':
+    """handle doc input"""
+    if extension == ".csv":
         df = open_csv(file)
-    if extension == '.xls' or '.xlsx':
+    if extension == ".xls" or ".xlsx":
         df = open_excel(file)
-        
+
     df_removed = remove_leading_abbr(df, col_name, abbr)
     clean_doc = convert_to_original(df_removed, extension)
 
     return clean_doc
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     if len(sys.argv) != 4:
-        print(f'Usage: ./0-remove_leading_abbr <PATH/TO/FILE> <COLUMN_NAME> <ABBR>')
-        print(f'Supported file formats: `.csv` `.xls` and `.xlsx`')
-        print(f'Example: ./0-remove_leading_abbr ~/Documents/my_file.csv amount_paid KES')
+        print(f"Usage: ./0-remove_leading_abbr <PATH/TO/FILE> <COLUMN_NAME> <ABBR>")
+        print(f"Supported file formats: `.csv` `.xls` and `.xlsx`")
+        print(
+            f"Example: ./0-remove_leading_abbr ~/Documents/my_file.csv amount_paid KES"
+        )
         sys.exit(1)
 
     file = sys.argv[1]
     extension = pathlib.Path(file).suffix
-    if extension != '.csv' or '.xlsx' or '.xls':
-        print(f'So sorry your file cannot be read. Supported file formats: `.csv` `.xls` and `.xlsx`, for now.')
+    if extension != ".csv" or ".xlsx" or ".xls":
+        print(
+            f"So sorry your file cannot be read. Supported file formats: `.csv` `.xls` and `.xlsx`, for now."
+        )
         sys.exit(1)
-    
+
     col_name = sys.argv[2]
     abbr = sys.argv[3]
     handle_doc_input(file, extension, col_name, abbr)
