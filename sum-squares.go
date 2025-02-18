@@ -1,4 +1,4 @@
-package main
+package sum_squares
 
 import (
 	"fmt"
