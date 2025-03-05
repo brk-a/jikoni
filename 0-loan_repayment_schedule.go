@@ -1,4 +1,4 @@
-package main
+package loan_repayment
 
 type repayment struct {
 	ob float64;
