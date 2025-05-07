@@ -10,3 +10,4 @@ ssh -f -N -D $HOSTADDR -4444
 sudo iptables -t nat -I PREROUTING -p tcp --dport 4444 -j REDIRECT --to-ports 22
 
 #INCOMPLETE
+# TODO: complete this
