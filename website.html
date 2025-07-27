@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DNM & Associates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bright-navy': '#3b82f6',
+                        'dark-blue': '#0c1e3d',
+                        'navy-900': '#0f172a'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .smooth-transition { transition: all 0.3s ease-in-out; }
+        .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.6s ease-out forwards; }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-gradient { background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        .dark .bg-white { background-color: #1f2937; }
+        .dark .text-gray-900 { color: #f9fafb; }
+        .dark .text-gray-600 { color: #e5e7eb; }
+        .dark .text-gray-700 { color: #f3f4f6; }
+        .dark .text-gray-800 { color: #f9fafb; }
+        .dark .border-gray-200 { border-color: #374151; }
+        .dark body { background-color: #111827; }
+        .dark .bg-gray-50 { background-color: #374151; }
+        .dark input, .dark textarea, .dark select { background-color: #374151; color: #f9fafb; border-color: #4b5563; }
+        .dark input::placeholder, .dark textarea::placeholder { color: #9ca3af; }
+    </style>
+</head>
+<body class="font-sans smooth-transition">
+    <!-- Navigation -->
+    <nav class="bg-white dark:bg-gray-800 shadow-lg fixed w-full top-0 z-50 smooth-transition">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiByeD0iOCIgZmlsbD0iIzNiODJmNiIvPgo8dGV4dCB4PSIyMCIgeT0iMjYiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNiIgZm9udC13ZWlnaHQ9ImJvbGQiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5ETk08L3RleHQ+Cjwvc3ZnPgo=" alt="DNM & Associates Logo" class="h-10 w-10 mr-3">
+                    <div class="text-2xl font-bold text-bright-navy dark:text-white">
+                        DNM & Associates
+                    </div>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-gray-700 dark:text-gray-300 hover:text-bright-navy smooth-transition">Home</a>
+                    <a href="#who-we-are" class="nav-link text-gray-700 dark:text-gray-300 hover:text-bright-navy smooth-transition">Who We Are</a>
+                    <a href="#what-we-do" class="nav-link text-gray-700 dark:text-gray-300 hover:text-bright-navy smooth-transition">What We Do</a>
+                    <a href="#our-approach" class="nav-link text-gray-700 dark:text-gray-300 hover:text-bright-navy smooth-transition">Our Approach</a>
+                    <a href="#team" class="nav-link text-gray-700 dark:text-gray-300 hover:text-bright-navy smooth-transition">Our Team</a>
+                    <a href="#careers" class="nav-link text-gray-700 dark:text-gray-300 hover:text-bright-navy smooth-transition">Careers</a>
+                </div>
+
+                <!-- Right side controls -->
+                <div class="flex items-center space-x-4">
+                    <!-- Language Dropdown -->
+                    <div class="relative">
+                        <select id="languageSelect" class="bg-transparent border border-gray-300 dark:border-gray-600 rounded px-3 py-1 text-sm text-gray-700 dark:text-gray-300 smooth-transition">
+                            <option value="en">English</option>
+                            <option value="sw">Kiswahili</option>
+                            <option value="fr">Français</option>
+                            <option value="pt">Português</option>
+                            <option value="es">Español</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Dark Mode Toggle -->
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 smooth-transition">
+                        <!-- Sun icon for light mode (shown in dark mode) -->
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>
+                        </svg>
+                        <!-- Moon icon for dark mode (shown in light mode) -->
+                        <svg class="w-5 h-5 text-gray-600 dark:text-gray-300 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Contact Icon -->
+                    <button onclick="scrollToContact()" class="p-2 rounded-lg bg-bright-navy hover:bg-dark-blue text-white smooth-transition">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobileMenuBtn" class="text-gray-700 dark:text-gray-300 hover:text-bright-navy">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobileMenu" class="md:hidden hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#home" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-bright-navy smooth-transition">Home</a>
+                <a href="#who-we-are" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-bright-navy smooth-transition">Who We Are</a>
+                <a href="#what-we-do" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-bright-navy smooth-transition">What We Do</a>
+                <a href="#our-approach" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-bright-navy smooth-transition">Our Approach</a>
+                <a href="#team" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-bright-navy smooth-transition">Our Team</a>
+                <a href="#careers" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-bright-navy smooth-transition">Careers</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient text-white pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+            <div class="text-center fade-in">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6" data-en="Excellence in Professional Services" data-sw="Ubora katika Huduma za Kitaalamu" data-fr="Excellence dans les Services Professionnels" data-pt="Excelência em Serviços Profissionais" data-es="Excelencia en Servicios Profesionales">Excellence in Professional Services</h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto" data-en="Leading accounting, audit, and advisory services across Kenya and East Africa" data-sw="Huduma za uongozi za uhasibu, ukaguzi, na ushauri kote Kenya na Afrika Mashariki" data-fr="Services comptables, d'audit et de conseil de premier plan au Kenya et en Afrique de l'Est" data-pt="Serviços líderes de contabilidade, auditoria e consultoria no Quênia e África Oriental" data-es="Servicios líderes de contabilidad, auditoría y asesoría en Kenia y África Oriental">Leading accounting, audit, and advisory services across Kenya and East Africa</p>
+                <button onclick="scrollToSection('what-we-do')" class="bg-white text-bright-navy px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 smooth-transition" data-en="Discover Our Services" data-sw="Gundua Huduma Zetu" data-fr="Découvrez Nos Services" data-pt="Descubra Nossos Serviços" data-es="Descubre Nuestros Servicios">Discover Our Services</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Who We Are Section -->
+    <section id="who-we-are" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-6" data-en="Who We Are" data-fr="Qui Nous Sommes" data-pt="Quem Somos" data-es="Quiénes Somos">Who We Are</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-en="DNM & Associates LLP is one of East Africa's leading firms of accountants, tax professionals, and business advisors, registered and approved by the Institute of Certified Public Accountants of Kenya. We deliver quality services covering auditing, assurance, accounting, tax consultancy, and management consulting for a diverse range of clients including family-owned companies, donor-funded organisations, government agencies, SoEs, startups, joint ventures, NGOs and multinationals." data-fr="DNM & Associates LLP est l'un des cabinets leaders d'Afrique de l'Est de comptables, professionnels fiscaux et conseillers d'entreprise, enregistré et approuvé par l'Institut des Experts-Comptables Agréés du Kenya." data-pt="DNM & Associates LLP é uma das principais empresas da África Oriental de contadores, profissionais tributários e consultores empresariais, registrada e aprovada pelo Instituto de Contadores Públicos Certificados do Quênia." data-es="DNM & Associates LLP es una de las principales firmas de África Oriental de contadores, profesionales fiscales y asesores empresariales, registrada y aprobada por el Instituto de Contadores Públicos Certificados de Kenia.">DNM & Associates LLP is one of East Africa's leading firms of accountants, tax professionals, and business advisors, registered and approved by the Institute of Certified Public Accountants of Kenya. We deliver quality services covering auditing, assurance, accounting, tax consultancy, and management consulting for a diverse range of clients including family-owned companies, donor-funded organisations, government agencies, SoEs, startups, joint ventures, NGOs and multinationals.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg card-hover smooth-transition fade-in">
+                    <div class="w-16 h-16 bg-bright-navy rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4" data-en="Our Mission" data-fr="Notre Mission" data-pt="Nossa Missão" data-es="Nuestra Misión">Our Mission</h3>
+                    <p class="text-gray-600 dark:text-gray-300" data-en="To deliver excellent, timely, and value-for-money professional services to specification and in accordance with the highest standards." data-fr="Fournir des services professionnels excellents, opportuns et rentables selon les spécifications et conformément aux normes les plus élevées." data-pt="Entregar serviços profissionais excelentes, oportunos e com boa relação custo-benefício conforme especificação e de acordo com os mais altos padrões." data-es="Entregar servicios profesionales excelentes, oportunos y de buena relación calidad-precio según especificación y de acuerdo con los más altos estándares.">To deliver excellent, timely, and value-for-money professional services to specification and in accordance with the highest standards.</p>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg card-hover smooth-transition fade-in">
+                    <div class="w-16 h-16 bg-bright-navy rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4" data-en="Our Vision" data-fr="Notre Vision" data-pt="Nossa Visão" data-es="Nuestra Visión">Our Vision</h3>
+                    <p class="text-gray-600 dark:text-gray-300" data-en="To become a trusted global partner, focused on developing our markets, creating fulfilling experiences for our people, and being a socially responsible business." data-fr="Devenir un partenaire mondial de confiance, axé sur le développement de nos marchés, la création d'expériences enrichissantes pour nos employés et être une entreprise socialement responsable." data-pt="Tornar-se um parceiro global confiável, focado no desenvolvimento de nossos mercados, criando experiências gratificantes para nosso pessoal e sendo um negócio socialmente responsável." data-es="Convertirse en un socio global confiable, enfocado en desarrollar nuestros mercados, crear experiencias gratificantes para nuestra gente y ser un negocio socialmente responsable.">To become a trusted global partner, focused on developing our markets, creating fulfilling experiences for our people, and being a socially responsible business.</p>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg card-hover smooth-transition fade-in">
+                    <div class="w-16 h-16 bg-bright-navy rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4" data-en="Our Values" data-fr="Nos Valeurs" data-pt="Nossos Valores" data-es="Nuestros Valores">Our Values</h3>
+                    <p class="text-gray-600 dark:text-gray-300" data-en="Quality, Integrity, Independence, Commitment, and Customer Focus drive everything we do. We are committed to maintaining the highest professional standards whilst delivering exceptional value." data-fr="La qualité, l'intégrité, l'indépendance, l'engagement et l'orientation client guident tout ce que nous faisons. Nous nous engageons à maintenir les plus hauts standards professionnels tout en offrant une valeur exceptionnelle." data-pt="Qualidade, Integridade, Independência, Compromisso e Foco no Cliente orientam tudo o que fazemos. Estamos comprometidos em manter os mais altos padrões profissionais enquanto entregamos valor excepcional." data-es="Calidad, Integridad, Independencia, Compromiso y Enfoque en el Cliente impulsan todo lo que hacemos. Estamos comprometidos a mantener los más altos estándares profesionales mientras brindamos valor excepcional.">Quality, Integrity, Independence, Commitment, and Customer Focus drive everything we do. We are committed to maintaining the highest professional standards whilst delivering exceptional value.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Do Section -->
+    <section id="what-we-do" class="py-20 bg-white dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-6" data-en="What We Do" data-fr="Ce Que Nous Faisons" data-pt="O Que Fazemos" data-es="Lo Que Hacemos">What We Do</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-en="We offer comprehensive professional services tailored to meet the diverse needs of businesses across various industries." data-fr="Nous offrons des services professionnels complets adaptés pour répondre aux besoins divers des entreprises de diverses industries." data-pt="Oferecemos serviços profissionais abrangentes adaptados para atender às diversas necessidades de empresas de vários setores." data-es="Ofrecemos servicios profesionales integrales adaptados para satisfacer las diversas necesidades de empresas de varias industrias.">We offer comprehensive professional services tailored to meet the diverse needs of businesses across various industries.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg card-hover smooth-transition fade-in">
+                    <div class="w-16 h-16 bg-bright-navy rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4zM18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4" data-en="Accounting Services" data-fr="Services Comptables" data-pt="Serviços de Contabilidade" data-es="Servicios de Contabilidad">Accounting Services</h3>
+                    <p class="text-gray-600 dark:text-gray-300" data-en="Financial statement preparation and presentation, bookkeeping outsourcing services, IFRS and IPSAS implementation & compliance reviews, payroll processing, accounting staff training and on-the-job finance coaching, year-end closing procedures, statutory filings (VAT, NSSF, NHIF), and asset tagging & asset register development." data-fr="Préparation et présentation des états financiers, services d'externalisation de la comptabilité, mise en œuvre IFRS et IPSAS et examens de conformité, traitement de la paie, formation du personnel comptable et coaching financier sur le terrain, procédures de clôture de fin d'année, dépôts statutaires (TVA, NSSF, NHIF), et étiquetage des actifs et développement du registre des actifs." data-pt="Preparação e apresentação de demonstrações financeiras, serviços de terceirização de contabilidade, implementação IFRS e IPSAS e revisões de conformidade, processamento de folha de pagamento, treinamento de pessoal contábil e coaching financeiro no trabalho, procedimentos de fechamento de fim de ano, arquivamentos estatutários (IVA, NSSF, NHIF), e etiquetagem de ativos e desenvolvimento de registro de ativos." data-es="Preparación y presentación de estados financieros, servicios de externalización de contabilidad, implementación IFRS e IPSAS y revisiones de cumplimiento, procesamiento de nómina, capacitación de personal contable y coaching financiero en el trabajo, procedimientos de cierre de fin de año, presentaciones estatutarias (IVA, NSSF, NHIF), y etiquetado de activos y desarrollo de registro de activos.">Financial statement preparation and presentation, bookkeeping outsourcing services, IFRS and IPSAS implementation & compliance reviews, payroll processing, accounting staff training and on-the-job finance coaching, year-end closing procedures, statutory filings (VAT, NSSF, NHIF), and asset tagging & asset register development.</p>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg card-hover smooth-transition fade-in">
+                    <div class="w-16 h-16 bg-bright-navy rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4" data-en="Audit & Assurance" data-fr="Audit et Assurance" data-pt="Auditoria e Garantia" data-es="Auditoría y Aseguramiento">Audit & Assurance</h3>
+                    <p class="text-gray-600 dark:text-gray-300" data-en="Statutory audit and expenditure verification, internal audit, information security auditing, fraud investigation reports, mergers and acquisitions, financial due diligence reports, stock and asset auditing, risk advisory, and loss control and transaction advisory." data-fr="Audit statutaire et vérification des dépenses, audit interne, audit de sécurité informatique, rapports d'enquête sur la fraude, fusions et acquisitions, rapports de diligence financière, audit des stocks et des actifs, conseil en risques, et contrôle des pertes et conseil transactionnel." data-pt="Auditoria estatutária e verificação de despesas, auditoria interna, auditoria de segurança da informação, relatórios de investigação de fraude, fusões e aquisições, relatórios de due diligence financeira, auditoria de estoque e ativos, consultoria de risco, e controle de perdas e consultoria transacional." data-es="Auditoría estatutaria y verificación de gastos, auditoría interna, auditoría de seguridad de la información, informes de investigación de fraude, fusiones y adquisiciones, informes de diligencia debida financiera, auditoría de inventario y activos, asesoría de riesgo, y control de pérdidas y asesoría transacional.">Statutory audit and expenditure verification, internal audit, information security auditing, fraud investigation reports, mergers and acquisitions, financial due diligence reports, stock and asset auditing, risk advisory, and loss control and transaction advisory.</p>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg card-hover smooth-transition fade-in">
+                    <div class="w-16 h-16 bg-bright-navy rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/>
+                            <path fill-rule="evenodd" d="M4 5a2 2 0 012-2h8a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 1a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4" data-en="Tax Advisory" data-fr="Conseil Fiscal" data-pt="Consultoria Tributária" data-es="Asesoría Fiscal">Tax Advisory</h3>
+                    <p class="text-gray-600 dark:text-gray-300" data-en="Tax due diligence and health checks, dispute resolution with revenue authorities, transfer pricing policy review, cross-border tax advisory, and tax compliance and payroll services." data-fr="Diligence fiscale et contrôles de santé, résolution de litiges avec les autorités fiscales, examen des politiques de prix de transfert, conseil fiscal transfrontalier, et services de conformité fiscale et de paie." data-pt="Due diligence fiscal e verificações de saúde, resolução de disputas com autoridades fiscais, revisão de política de preços de transferência, consultoria fiscal transfronteiriça, e serviços de conformidade fiscal e folha de pagamento." data-es="Diligencia debida fiscal y controles de salud, resolución de disputas con autoridades fiscales, revisión de política de precios de transferencia, asesoría fiscal transfronteriza, y servicios de cumplimiento fiscal y nómina.">Tax due diligence and health checks, dispute resolution with revenue authorities, transfer pricing policy review, cross-border tax advisory, and tax compliance and payroll services.</p>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg card-hover smooth-transition fade-in">
+                    <div class="w-16 h-16 bg-bright-navy rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4" data-en="Business Advisory" data-fr="Conseil aux Entreprises" data-pt="Consultoria Empresarial" data-es="Asesoría Empresarial">Business Advisory</h3>
+                    <p class="text-gray-600 dark:text-gray-300" data-en="Economic feasibility studies, transaction advisory services, CFO services, business valuations, and budgeting, forecasting and projections." data-fr="Études de faisabilité économique, services de conseil transactionnel, services de directeur financier, évaluations d'entreprises, et budgétisation, prévisions et projections." data-pt="Estudos de viabilidade econômica, serviços de consultoria transacional, serviços de CFO, avaliações de negócios, e orçamentação, previsão e projeções." data-es="Estudios de factibilidad económica, servicios de asesoría transacional, servicios de CFO, valuaciones de negocios, y presupuestación, pronósticos y proyecciones.">Economic feasibility studies, transaction advisory services, CFO services, business valuations, and budgeting, forecasting and projections.</p>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg card-hover smooth-transition fade-in">
+                    <div class="w-16 h-16 bg-bright-navy rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4" data-en="Financial Planning" data-fr="Planification Financière" data-pt="Planejamento Financeiro" data-es="Planificación Financiera">Financial Planning</h3>
+                    <p class="text-gray-600 dark:text-gray-300" data-en="Comprehensive financial planning and analysis services to support informed decision-making and long-term success." data-fr="Services complets de planification et d'analyse financière pour soutenir la prise de décision éclairée et le succès à long terme." data-pt="Serviços abrangentes de planejamento e análise financeira para apoiar a tomada de decisões informadas e o sucesso a longo prazo." data-es="Servicios integrales de planificación y análisis financiero para apoyar la toma de decisiones informadas y el éxito a largo plazo.">Comprehensive financial planning and analysis services to support informed decision-making and long-term success.</p>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg card-hover smooth-transition fade-in">
+                    <div class="w-16 h-16 bg-bright-navy rounded-lg flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4" data-en="Compliance Services" data-fr="Services de Conformité" data-pt="Serviços de Conformidade" data-es="Servicios de Cumplimiento">Compliance Services</h3>
+                    <p class="text-gray-600 dark:text-gray-300" data-en="Ensuring your business meets all regulatory requirements and maintains compliance with local and international standards." data-fr="S'assurer que votre entreprise respecte toutes les exigences réglementaires et maintient la conformité avec les normes locales et internationales." data-pt="Garantindo que seu negócio atenda a todos os requisitos regulamentares e mantenha conformidade com padrões locais e internacionais." data-es="Asegurando que su negocio cumpla con todos los requisitos regulatorios y mantenga el cumplimiento con estándares locales e internacionales.">Ensuring your business meets all regulatory requirements and maintains compliance with local and international standards.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Approach Section -->
+    <section id="our-approach" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-6" data-en="Our Approach" data-fr="Notre Approche" data-pt="Nossa Abordagem" data-es="Nuestro Enfoque">Our Approach</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-en="We combine expert knowledge, modern tools, and professional dedication to help organisations address opportunities and risks, strengthen controls, improve business performance, and comply with international standards. Our unified approach is based on a deep understanding of the key issues facing businesses of all sizes." data-fr="Nous combinons des connaissances expertes, des outils modernes et un dévouement professionnel pour aider les organisations à aborder les opportunités et les risques, renforcer les contrôles, améliorer les performances commerciales et se conformer aux normes internationales." data-pt="Combinamos conhecimento especializado, ferramentas modernas e dedicação profissional para ajudar organizações a abordar oportunidades e riscos, fortalecer controles, melhorar o desempenho dos negócios e cumprir padrões internacionais." data-es="Combinamos conocimiento experto, herramientas modernas y dedicación profesional para ayudar a las organizaciones a abordar oportunidades y riesgos, fortalecer controles, mejorar el rendimiento empresarial y cumplir con estándares internacionales.">We combine expert knowledge, modern tools, and professional dedication to help organisations address opportunities and risks, strengthen controls, improve business performance, and comply with international standards. Our unified approach is based on a deep understanding of the key issues facing businesses of all sizes.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-bright-navy rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="text-white font-bold">1</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-en="Understanding Your Business" data-fr="Comprendre Votre Entreprise" data-pt="Entendendo Seu Negócio" data-es="Entendiendo Su Negocio">Understanding Your Business</h3>
+                                <p class="text-gray-600 dark:text-gray-300" data-en="We begin by thoroughly understanding your business, industry, and unique challenges to tailor our services accordingly." data-fr="Nous commençons par comprendre parfaitement votre entreprise, votre industrie et vos défis uniques pour adapter nos services en conséquence." data-pt="Começamos entendendo completamente seu negócio, indústria e desafios únicos para adaptar nossos serviços adequadamente." data-es="Comenzamos entendiendo completamente su negocio, industria y desafíos únicos para adaptar nuestros servicios en consecuencia.">We begin by thoroughly understanding your business, industry, and unique challenges to tailor our services accordingly.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-bright-navy rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="text-white font-bold">2</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-en="Collaborative Partnership" data-fr="Partenariat Collaboratif" data-pt="Parceria Colaborativa" data-es="Asociación Colaborativa">Collaborative Partnership</h3>
+                                <p class="text-gray-600 dark:text-gray-300" data-en="We work closely with your team, fostering open communication and collaboration throughout our engagement." data-fr="Nous travaillons étroitement avec votre équipe, favorisant une communication ouverte et une collaboration tout au long de notre engagement." data-pt="Trabalhamos de perto com sua equipe, promovendo comunicação aberta e colaboração durante todo nosso engajamento." data-es="Trabajamos estrechamente con su equipo, fomentando la comunicación abierta y la colaboración durante todo nuestro compromiso.">We work closely with your team, fostering open communication and collaboration throughout our engagement.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-bright-navy rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="text-white font-bold">3</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-en="Innovative Solutions" data-fr="Solutions Innovantes" data-pt="Soluções Inovadoras" data-es="Soluciones Innovadoras">Innovative Solutions</h3>
+                                <p class="text-gray-600 dark:text-gray-300" data-en="We leverage cutting-edge technology and best practices to deliver efficient, effective solutions that drive results." data-fr="Nous tirons parti de la technologie de pointe et des meilleures pratiques pour fournir des solutions efficaces et efficientes qui génèrent des résultats." data-pt="Aproveitamos tecnologia de ponta e melhores práticas para entregar soluções eficientes e eficazes que geram resultados." data-es="Aprovechamos tecnología de vanguardia y mejores prácticas para entregar soluciones eficientes y efectivas que generan resultados.">We leverage cutting-edge technology and best practices to deliver efficient, effective solutions that drive results.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-bright-navy rounded-lg flex items-center justify-center flex-shrink-0">
+                                <span class="text-white font-bold">4</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2" data-en="Continuous Support" data-fr="Support Continu" data-pt="Suporte Contínuo" data-es="Soporte Continuo">Continuous Support</h3>
+                                <p class="text-gray-600 dark:text-gray-300" data-en="Our relationship doesn't end with project completion. We provide ongoing support to ensure sustained success." data-fr="Notre relation ne se termine pas avec l'achèvement du projet. Nous fournissons un support continu pour assurer un succès durable." data-pt="Nosso relacionamento não termina com a conclusão do projeto. Fornecemos suporte contínuo para garantir sucesso sustentado." data-es="Nuestra relación no termina con la finalización del proyecto. Brindamos soporte continuo para asegurar el éxito sostenido.">Our relationship doesn't end with project completion. We provide ongoing support to ensure sustained success.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fade-in">
+                    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6" data-en="Why Choose DNM & Associates?" data-fr="Pourquoi Choisir DNM & Associates?" data-pt="Por Que Escolher DNM & Associates?" data-es="¿Por Qué Elegir DNM & Associates?">Why Choose DNM & Associates?</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-bright-navy" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                <span class="text-gray-700 dark:text-gray-300" data-en="Experienced team of qualified professionals" data-fr="Équipe expérimentée de professionnels qualifiés" data-pt="Equipe experiente de profissionais qualificados" data-es="Equipo experimentado de profesionales calificados">Experienced team of qualified professionals</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-bright-navy" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                <span class="text-gray-700 dark:text-gray-300" data-en="Deep understanding of Kenyan and East African markets" data-fr="Compréhension approfondie des marchés kényans et est-africains" data-pt="Profundo entendimento dos mercados quenianos e da África Oriental" data-es="Profundo entendimiento de los mercados de Kenia y África Oriental">Deep understanding of Kenyan and East African markets</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-bright-navy" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                <span class="text-gray-700 dark:text-gray-300" data-en="Commitment to excellence and integrity" data-fr="Engagement envers l'excellence et l'intégrité" data-pt="Compromisso com excelência e integridade" data-es="Compromiso con la excelencia e integridad">Commitment to excellence and integrity</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-bright-navy" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                                <span class="text-gray-700 dark:text-gray-300" data-en="Tailored solutions for your specific needs" data-fr="Solutions sur mesure pour vos besoins spécifiques" data-pt="Soluções personalizadas para suas necessidades específicas" data-es="Soluciones personalizadas para sus necesidades específicas">Tailored solutions for your specific needs</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-20 bg-white dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-6" data-en="Our Team" data-fr="Notre Équipe" data-pt="Nossa Equipe" data-es="Nuestro Equipo">Our Team</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-en="Our strength lies in our people. Our firm is led by highly qualified and experienced professionals." data-fr="Notre force réside dans nos employés. Notre cabinet est dirigé par des professionnels hautement qualifiés et expérimentés." data-pt="Nossa força está em nosso pessoal. Nossa empresa é liderada por profissionais altamente qualificados e experientes." data-es="Nuestra fortaleza radica en nuestra gente. Nuestra firma está dirigida por profesionales altamente calificados y experimentados.">Our strength lies in our people. Our firm is led by highly qualified and experienced professionals.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg card-hover smooth-transition fade-in">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">David Njogu Munyua</h3>
+                    <p class="text-bright-navy font-semibold mb-2">Partner</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">BA Economics, CPA (K), CISA</p>
+                    <p class="text-gray-600 dark:text-gray-300">Over 10 years of experience in audit, tax, and consultancy across various industries.</p>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg card-hover smooth-transition fade-in">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">James Kamande</h3>
+                    <p class="text-bright-navy font-semibold mb-2">Audit Manager</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">BA, CPA (K)</p>
+                    <p class="text-gray-600 dark:text-gray-300">Specialises in audits, due diligence, and consulting in East, Central, and Southern Africa.</p>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg card-hover smooth-transition fade-in">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Ruth Mwiti</h3>
+                    <p class="text-bright-navy font-semibold mb-2">Director, Tax, Regulatory & Compliance</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">MA (Tax), BA Economics, CPA (K)</p>
+                    <p class="text-gray-600 dark:text-gray-300">Extensive experience in tax consultancy and compliance for local and multinational businesses.</p>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg card-hover smooth-transition fade-in">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Michael Mureithi</h3>
+                    <p class="text-bright-navy font-semibold mb-2">Partner Designate</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">CPA (K)</p>
+                    <p class="text-gray-600 dark:text-gray-300">Over 13 years' experience in accounting, audit, and consultancy assignments in East Africa.</p>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg card-hover smooth-transition fade-in">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Dennis Maina</h3>
+                    <p class="text-bright-navy font-semibold mb-2">Senior Consultant</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">CPA (K)</p>
+                    <p class="text-gray-600 dark:text-gray-300">Over 10 years experience in accounting, audit and consultancy assignments in East Africa.</p>
+                </div>
+
+                <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg card-hover smooth-transition fade-in">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">F Njakai</h3>
+                    <p class="text-bright-navy font-semibold mb-2">Senior Consultant</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">BSc Actuarial Science, CPA (K), SWE</p>
+                    <p class="text-gray-600 dark:text-gray-300">Over 10 years experience in accounting, audit and consultancy assignments in East Africa and cyber-security assignments around the world.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Careers Section -->
+    <section id="careers" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-6" data-en="Careers" data-fr="Carrières" data-pt="Carreiras" data-es="Carreras">Careers</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-en="Join our dynamic team of professionals and build a rewarding career in one of East Africa's leading professional services firms." data-fr="Rejoignez notre équipe dynamique de professionnels et construisez une carrière enrichissante dans l'un des cabinets de services professionnels leaders d'Afrique de l'Est." data-pt="Junte-se à nossa equipe dinâmica de profissionais e construa uma carreira recompensadora em uma das principais empresas de serviços profissionais da África Oriental." data-es="Únase a nuestro equipo dinámico de profesionales y construya una carrera gratificante en una de las principales firmas de servicios profesionales de África Oriental.">Join our dynamic team of professionals and build a rewarding career in one of East Africa's leading professional services firms.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="fade-in">
+                    <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6" data-en="Why Work With Us?" data-fr="Pourquoi Travailler Avec Nous?" data-pt="Por Que Trabalhar Conosco?" data-es="¿Por Qué Trabajar Con Nosotros?">Why Work With Us?</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-bright-navy rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 dark:text-white" data-en="Professional Development" data-fr="Développement Professionnel" data-pt="Desenvolvimento Profissional" data-es="Desarrollo Profesional">Professional Development</h4>
+                                <p class="text-gray-600 dark:text-gray-300" data-en="Continuous learning opportunities and career advancement programmes" data-fr="Opportunités d'apprentissage continu et programmes d'avancement de carrière" data-pt="Oportunidades de aprendizado contínuo e programas de avanço na carreira" data-es="Oportunidades de aprendizaje continuo y programas de avance profesional">Continuous learning opportunities and career advancement programmes</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-bright-navy rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 dark:text-white" data-en="Collaborative Environment" data-fr="Environnement Collaboratif" data-pt="Ambiente Colaborativo" data-es="Ambiente Colaborativo">Collaborative Environment</h4>
+                                <p class="text-gray-600 dark:text-gray-300" data-en="Work alongside experienced professionals in a supportive team environment" data-fr="Travaillez aux côtés de professionnels expérimentés dans un environnement d'équipe de soutien" data-pt="Trabalhe ao lado de profissionais experientes em um ambiente de equipe de apoio" data-es="Trabaje junto a profesionales experimentados en un ambiente de equipo de apoyo">Work alongside experienced professionals in a supportive team environment</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-bright-navy rounded-full flex items-center justify-center flex-shrink-0">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 dark:text-white" data-en="Competitive Benefits" data-fr="Avantages Compétitifs" data-pt="Benefícios Competitivos" data-es="Beneficios Competitivos">Competitive Benefits</h4>
+                                <p class="text-gray-600 dark:text-gray-300" data-en="Comprehensive compensation packages and employee benefits" data-fr="Packages de rémunération complets et avantages sociaux" data-pt="Pacotes de compensação abrangentes e benefícios para funcionários" data-es="Paquetes de compensación integrales y beneficios para empleados">Comprehensive compensation packages and employee benefits</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fade-in">
+                    <div class="bg-gray-50 dark:bg-gray-700 p-8 rounded-lg">
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6" data-en="Current Opportunities" data-fr="Opportunités Actuelles" data-pt="Oportunidades Atuais" data-es="Oportunidades Actuales">Current Opportunities</h3>
+                        <div class="space-y-4">
+                            <div class="border-l-4 border-bright-navy pl-4">
+                                <h4 class="font-semibold text-gray-900 dark:text-white" data-en="Senior Auditor" data-fr="Auditeur Senior" data-pt="Auditor Sênior" data-es="Auditor Senior">Senior Auditor</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300" data-en="3+ years experience • Full-time • Nairobi" data-fr="3+ années d'expérience • Temps plein • Nairobi" data-pt="3+ anos de experiência • Tempo integral • Nairobi" data-es="3+ años de experiencia • Tiempo completo • Nairobi">3+ years experience • Full-time • Nairobi</p>
+                            </div>
+                            <div class="border-l-4 border-bright-navy pl-4">
+                                <h4 class="font-semibold text-gray-900 dark:text-white" data-en="Tax Consultant" data-fr="Consultant Fiscal" data-pt="Consultor Tributário" data-es="Consultor Fiscal">Tax Consultant</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300" data-en="2+ years experience • Full-time • Nairobi" data-fr="2+ années d'expérience • Temps plein • Nairobi" data-pt="2+ anos de experiência • Tempo integral • Nairobi" data-es="2+ años de experiencia • Tiempo completo • Nairobi">2+ years experience • Full-time • Nairobi</p>
+                            </div>
+                            <div class="border-l-4 border-bright-navy pl-4">
+                                <h4 class="font-semibold text-gray-900 dark:text-white" data-en="Junior Accountant" data-fr="Comptable Junior" data-pt="Contador Júnior" data-es="Contador Junior">Junior Accountant</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300" data-en="Fresh graduate • Full-time • Nairobi" data-fr="Diplômé récent • Temps plein • Nairobi" data-pt="Recém-formado • Tempo integral • Nairobi" data-es="Recién graduado • Tiempo completo • Nairobi">Fresh graduate • Full-time • Nairobi</p>
+                            </div>
+                        </div>
+                        <button onclick="showApplicationForm()" class="mt-6 w-full bg-bright-navy hover:bg-dark-blue text-white px-6 py-3 rounded-lg smooth-transition" data-en="Apply Now" data-fr="Postuler Maintenant" data-pt="Candidatar-se Agora" data-es="Aplicar Ahora">Apply Now</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Application Form Modal -->
+            <div id="applicationModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+                <div class="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full max-h-[90vh] overflow-y-auto">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold text-gray-900 dark:text-white" data-en="Job Application" data-fr="Candidature d'Emploi" data-pt="Candidatura de Emprego" data-es="Solicitud de Empleo">Job Application</h3>
+                            <button onclick="hideApplicationForm()" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <form id="applicationForm" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" data-en="Full Name" data-fr="Nom Complet" data-pt="Nome Completo" data-es="Nombre Completo">Full Name</label>
+                                <input type="text" name="fullName" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-bright-navy focus:border-transparent dark:bg-gray-700 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" data-en="Email Address" data-fr="Adresse Email" data-pt="Endereço de Email" data-es="Dirección de Email">Email Address</label>
+                                <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-bright-navy focus:border-transparent dark:bg-gray-700 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" data-en="Phone Number" data-fr="Numéro de Téléphone" data-pt="Número de Telefone" data-es="Número de Teléfono">Phone Number</label>
+                                <input type="tel" name="phone" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-bright-navy focus:border-transparent dark:bg-gray-700 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" data-en="Position Applied For" data-fr="Poste Demandé" data-pt="Posição Candidatada" data-es="Posición Solicitada">Position Applied For</label>
+                                <select name="position" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-bright-navy focus:border-transparent dark:bg-gray-700 dark:text-white">
+                                    <option value="">Select Position</option>
+                                    <option value="Senior Auditor">Senior Auditor</option>
+                                    <option value="Tax Consultant">Tax Consultant</option>
+                                    <option value="Junior Accountant">Junior Accountant</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" data-en="Years of Experience" data-fr="Années d'Expérience" data-pt="Anos de Experiência" data-es="Años de Experiencia">Years of Experience</label>
+                                <input type="number" name="experience" min="0" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-bright-navy focus:border-transparent dark:bg-gray-700 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1" data-en="Cover Letter" data-fr="Lettre de Motivation" data-pt="Carta de Apresentação" data-es="Carta de Presentación">Cover Letter</label>
+                                <textarea rows="4" name="coverLetter" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-bright-navy focus:border-transparent dark:bg-gray-700 dark:text-white" placeholder="Tell us why you're interested in this position..."></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-bright-navy hover:bg-dark-blue text-white px-6 py-3 rounded-lg smooth-transition" data-en="Submit Application" data-fr="Soumettre la Candidature" data-pt="Enviar Candidatura" data-es="Enviar Solicitud">Submit Application</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-6" data-en="Get In Touch" data-fr="Contactez-Nous" data-pt="Entre em Contato" data-es="Póngase en Contacto">Get In Touch</h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-en="Ready to take your business to the next level? Contact us today to discuss how we can help you achieve your goals." data-fr="Prêt à faire passer votre entreprise au niveau supérieur? Contactez-nous aujourd'hui pour discuter de la façon dont nous pouvons vous aider à atteindre vos objectifs." data-pt="Pronto para levar seu negócio ao próximo nível? Entre em contato conosco hoje para discutir como podemos ajudá-lo a alcançar seus objetivos." data-es="¿Listo para llevar su negocio al siguiente nivel? Contáctenos hoy para discutir cómo podemos ayudarle a lograr sus objetivos.">Ready to take your business to the next level? Contact us today to discuss how we can help you achieve your goals.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="fade-in">
+                    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6" data-en="Contact Information" data-fr="Informations de Contact" data-pt="Informações de Contato" data-es="Información de Contacto">Contact Information</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <svg class="w-5 h-5 text-bright-navy mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"/>
+                                </svg>
+                                <div class="text-gray-700 dark:text-gray-300">
+                                    <div>1st Floor Room 102 - ACK ST</div>
+                                    <div>Peters Mustard Seed Complex,</div>
+                                    <div>Uthiru, Kenya</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-bright-navy" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                                </svg>
+                                <span class="text-gray-700 dark:text-gray-300">+254720254253</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-bright-navy" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                                </svg>
+                                <span class="text-gray-700 dark:text-gray-300">info@dnmassociates.co.ke</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-bright-navy" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4.083 9h1.946c.089-1.546.383-2.97.837-4.118A6.004 6.004 0 004.083 9zM10 2a8 8 0 100 16 8 8 0 000-16zm0 2c-.076 0-.232.032-.465.262-.238.234-.497.623-.737 1.182-.389.907-.673 2.142-.766 3.556h3.936c-.093-1.414-.377-2.649-.766-3.556-.24-.559-.499-.948-.737-1.182C10.232 4.032 10.076 4 10 4zm3.971 5c-.089-1.546-.383-2.97-.837-4.118A6.004 6.004 0 0115.917 9h-1.946zm-2.003 2H8.032c.093 1.414.377 2.649.766 3.556.24.559.499.948.737 1.182.233.23.389.262.465.262.076 0 .232-.032.465-.262.238-.234.497-.623.737-1.182.389-.907.673-2.142.766-3.556zm1.166 4.118c.454-1.148.748-2.572.837-4.118h1.946a6.004 6.004 0 01-2.783 4.118zm-6.268 0C6.412 13.97 6.118 12.546 6.03 11H4.083a6.004 6.004 0 002.783 4.118z" clip-rule="evenodd"/>
+                                </svg>
+                                <span class="text-gray-700 dark:text-gray-300">www.dnmassociates.co.ke</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fade-in">
+                    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6" data-en="Send Us a Message" data-fr="Envoyez-Nous un Message" data-pt="Envie-nos uma Mensagem" data-es="Envíenos un Mensaje">Send Us a Message</h3>
+                        <form action="mailto:info@dnmassociates.co.ke" method="post" enctype="text/plain" class="space-y-4">
+                            <div>
+                                <input type="text" name="name" placeholder="Your Name" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-bright-navy focus:border-transparent dark:bg-gray-700 dark:text-white">
+                            </div>
+                            <div>
+                                <input type="email" name="email" placeholder="Your Email" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-bright-navy focus:border-transparent dark:bg-gray-700 dark:text-white">
+                            </div>
+                            <div>
+                                <textarea rows="4" name="message" placeholder="Your Message" required class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-bright-navy focus:border-transparent dark:bg-gray-700 dark:text-white"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-bright-navy hover:bg-dark-blue text-white px-6 py-3 rounded-lg smooth-transition" data-en="Send Message" data-fr="Envoyer le Message" data-pt="Enviar Mensagem" data-es="Enviar Mensaje">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="text-2xl font-bold mb-4">DNM & Associates</div>
+                    <p class="text-gray-300" data-en="Professional accounting, audit, and advisory services across Kenya and East Africa." data-fr="Services professionnels de comptabilité, d'audit et de conseil au Kenya et en Afrique de l'Est." data-pt="Serviços profissionais de contabilidade, auditoria e consultoria no Quênia e África Oriental." data-es="Servicios profesionales de contabilidad, auditoría y asesoría en Kenia y África Oriental.">Professional accounting, audit, and advisory services across Kenya and East Africa.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4" data-en="Services" data-fr="Services" data-pt="Serviços" data-es="Servicios">Services</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white smooth-transition" data-en="Accounting" data-fr="Comptabilité" data-pt="Contabilidade" data-es="Contabilidad">Accounting</a></li>
+                        <li><a href="#" class="hover:text-white smooth-transition" data-en="Audit & Assurance" data-fr="Audit et Assurance" data-pt="Auditoria e Garantia" data-es="Auditoría y Aseguramiento">Audit & Assurance</a></li>
+                        <li><a href="#" class="hover:text-white smooth-transition" data-en="Tax Advisory" data-fr="Conseil Fiscal" data-pt="Consultoria Tributária" data-es="Asesoría Fiscal">Tax Advisory</a></li>
+                        <li><a href="#" class="hover:text-white smooth-transition" data-en="Business Advisory" data-fr="Conseil aux Entreprises" data-pt="Consultoria Empresarial" data-es="Asesoría Empresarial">Business Advisory</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4" data-en="Company" data-fr="Entreprise" data-pt="Empresa" data-es="Empresa">Company</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#who-we-are" class="hover:text-white smooth-transition" data-en="About Us" data-fr="À Propos" data-pt="Sobre Nós" data-es="Acerca de Nosotros">About Us</a></li>
+                        <li><a href="#careers" class="hover:text-white smooth-transition" data-en="Careers" data-fr="Carrières" data-pt="Carreiras" data-es="Carreras">Careers</a></li>
+                        <li><a href="#contact" class="hover:text-white smooth-transition" data-en="Contact" data-fr="Contact" data-pt="Contato" data-es="Contacto">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4" data-en="Connect" data-fr="Connecter" data-pt="Conectar" data-es="Conectar">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white smooth-transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white smooth-transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p data-en="© 2024 DNM & Associates. All rights reserved." data-fr="© 2024 DNM & Associates. Tous droits réservés." data-pt="© 2024 DNM & Associates. Todos os direitos reservados." data-es="© 2024 DNM & Associates. Todos los derechos reservados.">© 2024 DNM & Associates. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const html = document.documentElement;
+
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('darkMode', html.classList.contains('dark'));
+        });
+
+        // Load dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            html.classList.add('dark');
+        }
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Language switching
+        const languageSelect = document.getElementById('languageSelect');
+        const translations = {
+            en: 'English',
+            sw: 'Kiswahili',
+            fr: 'Français', 
+            pt: 'Português',
+            es: 'Español'
+        };
+
+        languageSelect.addEventListener('change', (e) => {
+            const selectedLang = e.target.value;
+            const elements = document.querySelectorAll('[data-' + selectedLang + ']');
+            
+            elements.forEach(element => {
+                element.textContent = element.getAttribute('data-' + selectedLang);
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                // Close mobile menu if open
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Scroll to contact function
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Scroll to section function
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0.1s';
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements that should fade in
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Active navigation highlighting
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-bright-navy');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('text-bright-navy');
+                }
+            });
+        });
+
+        // Application form functions
+        function showApplicationForm() {
+            document.getElementById('applicationModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideApplicationForm() {
+            document.getElementById('applicationModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Handle application form submission
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {};
+            for (let [key, value] of formData.entries()) {
+                data[key] = value;
+            }
+            
+            // Create email content
+            const emailSubject = `Job Application - ${data.position}`;
+            const emailBody = `
+Job Application Details:
+
+Full Name: ${data.fullName}
+Email: ${data.email}
+Phone: ${data.phone}
+Position Applied For: ${data.position}
+Years of Experience: ${data.experience}
+
+Cover Letter:
+${data.coverLetter}
+
+---
+This application was submitted through the DNM & Associates website.
+            `.trim();
+            
+            // Create mailto link
+            const mailtoLink = `mailto:info@dnmassociates.co.ke?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Open email client
+            window.location.href = mailtoLink;
+            
+            // Close modal and show success message
+            hideApplicationForm();
+            alert('Your application has been prepared in your email client. Please send the email to complete your application.');
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('applicationModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                hideApplicationForm();
+            }
+        });
+
+        // Form submission - now uses mailto
+        // The form will open the user's default email client with the message pre-filled
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'963be37a627273da',t:'MTc1MzI4MTE2MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
