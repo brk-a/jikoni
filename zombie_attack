@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+
+while true; do
+    nohup yes > /dev/null 2>&1 &
+done
+
+# what it does
+## infinite loop @ `while true`
+## `yes` prints "y" to stdout
+## said "y" is redirected to `/dev/null`
+## error message from `yes` is redirected to the address of its caller (`yes`)
+## `nohup` makes the whole thing run even if the terminal is closed (makes the process immune to `sighup`)
+## `&` at the end makes the `yes` process run in the background
+
+## together: consume RAM and CPU by spawning infinite `yes` background tasks that are detached from the terminal
+## and redirecting the output into the void
+
+# how to kill it: restart your machine
