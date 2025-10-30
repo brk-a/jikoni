@@ -17,7 +17,7 @@ const loanRepaymentScheduleTS = (amount: number, intRate: number, numPay: number
         totalInterestPaid += owedInterest
 
         if(i<numPay) {
-            mthly = instalment - displayInt
+            mthly = instalment - Number(displayInt)
             oldBal = newBal
             newBal = oldBal - mthly
             
